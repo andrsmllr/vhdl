@@ -45,6 +45,7 @@ package mii_pkg is
     end record;
     
     type mii_rxo_t is record
+        empty : std_logic;
     end record;
     
     type mii_txi_t is record
@@ -71,6 +72,7 @@ package mii_pkg is
     end record;
     
     type gmii_rxo_t is record
+        empty : std_logic;
     end record;
     
     type gmii_txi_t is record
@@ -97,6 +99,7 @@ package mii_pkg is
     end record;
     
     type rgmii_rxo_t is record
+        empty : std_logic;
     end record;
     
     type rgmii_txi_t is record
@@ -123,6 +126,7 @@ package mii_pkg is
     end record;
     
     type sgmii_rxo_t is record
+        empty : std_logic;
     end record;
     
     type sgmii_txi_t is record
