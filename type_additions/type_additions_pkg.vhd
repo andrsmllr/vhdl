@@ -49,7 +49,7 @@ package type_additions_pkg is
         Mbps = 1000 Kbps;
         Gbps = 1000 Mbps;
         Tbps = 1000 Gbps;
-    end units data_rate_t;
+    end units bit_rate_t;
     
     type baud_rate_t is range integer'low to integer'high
     units
@@ -60,6 +60,8 @@ package type_additions_pkg is
         TBaud = 1000 GBaud;
     end units baud_rate_t;
     
+    -- Note: The word 'bit' is already used as a predefined VHDL type.
+    --       Thus 'Byte' is used as the smallest unit of memory.
     type memory_t is range integer'low to integer'high
     units
         Byte;
@@ -75,11 +77,11 @@ package type_additions_pkg is
     
     subtype nibble_t is std_logic_vector(3 downto 0);
     subtype byte_t is std_logic_vector(7 downto 0);
-    alias octet_t is byte_t;
+    subtype octet_t is std_logic_vector(7 downto 0);
     
     type nibble_vector_t is array (integer range<>) of nibble_t;
     type byte_vector_t is array (integer range<>) of byte_t;
-    alias octet_vector_t is byte_vector_t;
+    type octet_vector_t is array (integer range<>) of octet_t;
     
     -- Functions.
     
@@ -88,6 +90,8 @@ package type_additions_pkg is
     function "*"(left: time; right: frequency_t) return integer;
     function "*"(left: bit_rate_t; right: time) return memory_t;
     function "*"(left: time; right: bit_rate_t) return memory_t;
+    function "*"(left: memory_t; right: frequency_t) return bit_rate_t;
+    function "*"(left: frequency_t; right: memory_t) return bit_rate_t;
     
 end package type_additions_pkg;
 
@@ -96,25 +100,37 @@ package body type_additions_pkg is
     function "*"(left: frequency_t; right: time)
     return integer is
     begin
-        return left*right;
+        return left * right;
     end function "*";
     
     function "*"(left: time; right: frequency_t)
     return integer is
     begin
-        return left*right;
+        return left * right;
     end function "*";
     
     function "*"(left: bit_rate_t; right: time)
     return memory_t is
     begin
-        return left*right;
+        return left * right /8;
     end function "*";
     
     function "*"(left: time; right: bit_rate_t)
     return memory_t is
     begin
-        return left*right;
+        return left * right / 8;
+    end function "*";
+    
+    function "*"(left: memory_t; right: frequency_t)
+    return bit_rate_t is
+    begin
+        return left * right * 8;
+    end function "*";
+    
+    function "*"(left: frequency_t; right: memory_t)
+    return bit_rate_t is
+    begin
+        return left * right * 8;
     end function "*";
 
 end package body type_additions_pkg;
