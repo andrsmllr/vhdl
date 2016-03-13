@@ -1,8 +1,8 @@
 --============================================================================
 --!
---! \file      type_additions_pkg
+--! \file      type_additions_pkg.vhd
 --!
---! \project   type_additions_lib
+--! \project   type_additions
 --!
 --! \langv     VHDL-2002
 --!
