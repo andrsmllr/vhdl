@@ -35,8 +35,8 @@ library work;
 package ipv4_pkg is
     
     -- Constants related to the IPv4 packet dimensions.
-    constant IPV4_MIN_PACKET_LEN : integer := 20;
-    constant IPV4_MAX_PACKET_LEN : integer := 65535;
+    constant IPV4_MIN_PACKET_LEN     : integer := 20;
+    constant IPV4_MAX_PACKET_LEN     : integer := 65535;
     constant IPV4_MIN_REASSEMBLE_LEN : integer := 576;
     
     -- Constants related to the IPv4 header and header fields.
